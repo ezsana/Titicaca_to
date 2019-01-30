@@ -62,7 +62,7 @@ def game():
     elif selection == 3:
         mainMenu()
     else:
-        print("Invalid choice. Press enter 1-3!")
+        mainMenu() # print(invalid choice helyett mainMenu - visszaugrik.)
 
 
 def credit():
@@ -200,11 +200,14 @@ def main():
             break
         i += 1
         counter += 1
-    restart = input("Press r to restart ")
-    if restart == "r":
-        main()
-    else:
-        print("Invalid input")
+    while True: # if we choose different letter then 'r', it restarted anyway
+        restart = input("Press r to restart ")
+        if restart == "r":
+            main()
+            False
+        else:
+            print("Invalid input")
+            continue
 
 
 mainMenu()
