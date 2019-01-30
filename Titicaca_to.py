@@ -196,6 +196,98 @@ def scoring(state, depth):
     else:
         return 0
 
+def simpleAI_map1(map): # new feature: AI
+    if map[5] != "X" and map[5] != "O":
+        map[5] = "O"
+
+    elif map[1] == "X" and map[3] != "O":
+        map[3] = "O"
+    elif map[7] == " ":
+        map[7] = "O"
+    elif map[1] == "X" and map[4] != "O" or map[7] == "X" and map[4] != "O":
+        map[4] = "O"
+    elif map[6] == " ":
+        map[6] = "O"
+    elif map[2] == " ":
+        map[2] = "O"
+    elif map[8] == " ":
+        map[8] = "O"
+    elif map[9] == " ":
+        map[9] = "O"
+
+    elif map[3] == "X" and map[1] != "O":
+        map[1] = "O"
+    elif map[9] == " ":
+        map[9] = "O"
+    elif map[3] == "X" or map[1] == "X":
+        map[6] = "O"
+    elif map[7] == "X" or map[1] == "X":
+        map[4] == "O"
+
+    elif map[7] == "X" and map[9] != "O":
+        map[9] = "O"
+    elif map[1] == " ":
+        map[1] = "O"
+    elif map[3] == "X" or map[1] == "X":
+        map[6] = "O"
+    elif map[7] == "X" or map[1] == "X":
+        map[4] == "O"
+
+    elif map[9] == "X" and map != "O":
+        map[7] = "O"
+    elif map[3] == "X":
+        map[3] = "O"
+    elif map[3] == "X" or map[1] == "X":
+        map[6] = "O"
+    elif map[7] == "X" or map[1] == "X":
+        map[4] == "O"
+
+def simpleAI_map2(map):
+    if map[5] != "O" and map[5] != "X":
+        map[5] = "X"
+
+    elif map[1] == "O" and map[3] != "X":
+        map[3] = "X"
+    elif map[7] == " ":
+        map[7] = "X"
+    elif map[1] == "O" and map[4] != "X" or map[7] == "O" and map[4] != "X":
+        map[4] = "X"
+    elif map[6] == " ":
+        map[6] = "X"
+    elif map[2] == " ":
+        map[2] = "X"
+    elif map[8] == " ":
+        map[8] = "X"
+    elif map[9] == " ":
+        map[9] = "X"
+
+    elif map[3] == "O" and map[1] != "X":
+        map[1] = "X"
+    elif map[9] == " ":
+        map[9] = "X"
+    elif map[3] == "O" or map[1] == "O":
+        map[6] = "X"
+    elif map[7] == "O" or map[1] == "O":
+        map[4] == "X"
+
+    elif map[7] == "O" and map[9] != "X":
+        map[9] = "X"
+    elif map[1] == " ":
+        map[1] = "X"
+    elif map[3] == "O" or map[1] == "O":
+        map[6] = "X"
+    elif map[7] == "O" or map[1] == "O":
+        map[4] == "X"
+
+    elif map[9] == "O" and map != "X":
+        map[7] = "X"
+    elif map[3] == "O":
+        map[3] = "X"
+    elif map[3] == "O" or map[1] == "O":
+        map[6] = "X"
+    elif map[7] == "O" or map[1] == "O":
+        map[4] == "X"
+
 def AIMain():
     map = ["1", " ", " ", " ", " ", " ", " ", " ", " ", " "]
     i = 0
@@ -203,7 +295,7 @@ def AIMain():
     run = True
     while run == True:
         board(map)
-        simpleAI(map)
+        simpleAI_map1(map)
         subprocess.call(["clear"])
         board(map)
         if winning_condition(map, run) == True:
@@ -224,6 +316,7 @@ def AIMain():
         else:
             print("Invalid input")
             continue
+
 
 def main():
     map = ["1", " ", " ", " ", " ", " ", " ", " ", " ", " "]
