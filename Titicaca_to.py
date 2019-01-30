@@ -52,21 +52,24 @@ def title():
 
 
 def game():
-    subprocess.call(["clear"])# kijavítottuk a clear shell=True-t [clear]-re mindenhol
+    subprocess.call(['clear'])# kijavítottuk a clear shell=True-t [clear]-re mindenhol
     title()
     print(""" 1.One player\n 2.Two player\n 3.back\n""")
-    selection = (input("Enter choice:"))
-    if selection == '2':
-        subprocess.call(["clear"])
+    selection = (input('Enter choice: '))
+    if selection == '1':
+        subprocess.call(['clear'])
+        AIMain()
+    elif selection == '2':
+        subprocess.call(['clear'])
         main()
     elif selection == '3':
         mainMenu()
     else:
-        game()  # print(invalid choice) helyett game - visszaugrik.
+        game()  # print(invalid choice) helyett game - visszaugrik.ITT A HELYE AZ AI-NAK!!!
 
 
 def credit():
-    subprocess.call(["clear"])
+    subprocess.call(['clear'])
     print("""\x1b[1;33;41m Created by:    88888888888 d8b 888    d8b                                            888       888
                     888     Y8P 888    Y8P                                            888      888      
                     888         888                                                   888            
@@ -75,12 +78,12 @@ def credit():
                     888     888 888    888 888      .d888888 888      .d888888 888888 888   888  888 
                     888     888 Y88b.  888 Y88b.    888  888 Y88b.    888  888        Y88b. Y88..88P 
                     888     888  "Y888 888  "Y8888P "Y888888  "Y8888P "Y888888         "Y888 "Y88P" \n Zsana\n Geri\n""")
-    print("1.back")
-    selection = (input("Enter choice:"))
+    print('1.back')
+    selection = (input('Enter choice:'))
     if selection == '1':
         mainMenu()
     else:
-        credit()
+        credit() # Ez itt működik?
 
 
 def win1_score():
@@ -102,16 +105,16 @@ def win2_score():
 
 
 def exitgame():
-    subprocess.call(["clear"])
-    print("Good bye!")
+    subprocess.call(['clear'])
+    print('Goodbye!')
     exit()
 
 
 def mainMenu():
-    subprocess.call(["clear"])
+    subprocess.call(['clear'])
     title()
     print(""" 1.Start\n 2.Credit\n 3.Quit\n""")
-    selection = (input("Enter choice:"))
+    selection = (input('Enter choice: '))
     if selection == '1':
         game()
     elif selection == '2':
@@ -155,9 +158,9 @@ def winning_condition(map, state):
 
 def choice(map, counter):
     try:
-        while True:
-            cho = int(input("Enter a number: "))
-            if  cho in [1,2,3,4,5,6,7,8,9]:
+        while True: # changed try: put while loop in to make sure user chooses the right number.
+            cho = int(input('Enter a number: '))
+            if cho in [1,2,3,4,5,6,7,8,9]:
                 break
             else:
                 print('Please write a number between 1-9: ')
@@ -166,7 +169,7 @@ def choice(map, counter):
         if cho == 'q':
             mainMenu()
         else:
-            subprocess.call(["clear"])
+            subprocess.call(['clear'])
             print('Invalid input')
             board(map)
             choice(map, counter)
@@ -181,9 +184,7 @@ def choice(map, counter):
                 map[cho] = "X"
             else:
                 choice(map, counter)
-    if cho not in [1,2,3,4,5,6,7,8,9]:
-        print('Please write a number between 1-9. ')
-    subprocess.call(["clear"])
+    subprocess.call(['clear'])
     board(map)
 
 
@@ -195,6 +196,34 @@ def scoring(state, depth):
     else:
         return 0
 
+def AIMain():
+    map = ["1", " ", " ", " ", " ", " ", " ", " ", " ", " "]
+    i = 0
+    counter = 0
+    run = True
+    while run == True:
+        board(map)
+        simpleAI(map)
+        subprocess.call(["clear"])
+        board(map)
+        if winning_condition(map, run) == True:
+            break
+        choice(map, counter)
+        subprocess.call(["clear"])
+        if winning_condition(map, run) == True:
+            break
+        i += 1
+    while True:
+        restart = input("Would you like to restart? y/n: ")
+        if restart == "y":
+            AIMain()
+            False
+        elif restart == "n":
+            mainMenu()
+            False
+        else:
+            print("Invalid input")
+            continue
 
 def main():
     map = ["1", " ", " ", " ", " ", " ", " ", " ", " ", " "]
@@ -204,21 +233,21 @@ def main():
     while run == True:
         board(map)
         choice(map, counter)
-        subprocess.call(["clear"])
+        subprocess.call(['clear'])
         if winning_condition(map, run) == True:
             break
         i += 1
         counter += 1
     while True:
-        restart = input("Would you like to restart? y/n: ")# if we chose different letter then 'r', it restarted anyway
-        if restart == "y": # we changed r to y or n
+        restart = input('Would you like to restart? y/n: ')# if we chose different letter then 'r', it restarted anyway
+        if restart == 'y': # we changed r to y or n
             main()
             False
-        elif restart == "n":
+        elif restart == 'n':
             mainMenu()
             False
         else:
-            print("Invalid input")
+            print('Invalid input')
             continue
 
 
