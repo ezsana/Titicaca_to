@@ -62,7 +62,7 @@ def game():
     elif selection == '3':
         mainMenu()
     else:
-        game()  # print(invalid choice helyett game - visszaugrik.)
+        game()  # print(invalid choice) helyett game - visszaugrik.
 
 
 def credit():
@@ -156,7 +156,7 @@ def winning_condition(map, state):
 def choice(map, counter):
     try:
         cho = int(input("Enter a number: "))
-    except (ValueError, IndexError):
+    except (ValueError):
         cho = input('press q to return to main menu')
         if cho == 'q':
             mainMenu()
