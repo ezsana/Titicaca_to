@@ -55,29 +55,32 @@ def game():
     subprocess.call(["clear"])# kijavítottuk a clear shell=True-t [clear]-re mindenhol
     title()
     print(""" 1.One player\n 2.Two player\n 3.back\n""")
-    selection = int(input("Enter choice:"))
-    if selection == 2:
+    selection = (input("Enter choice:"))
+    if selection == '2':
         subprocess.call(["clear"])
         main()
-    elif selection == 3:
+    elif selection == '3':
         mainMenu()
     else:
-        mainMenu() # print(invalid choice helyett mainMenu - visszaugrik.)
+        game()  # print(invalid choice helyett game - visszaugrik.)
 
 
 def credit():
     subprocess.call(["clear"])
-    print("""\x1b[1;33;41m Created by:                 dBBBBBb  dBBBP     dBBBBb      dBBBBb  dBBBP 
-                             dB'               dBP dBP                   
-                             dBBBP' dBBP      dBP dBP     dBBBB   dBBP    
-                             dBP    dBP       dBP dBP     dB' BB  dBP      
-                             dBP    dBBBBP    dBP dBP     dBBBBBB dBBBBP\n Peti\n Norbi\n Geri\n""")
+    print("""\x1b[1;33;41m Created by:    88888888888 d8b 888    d8b                                            888       888
+                    888     Y8P 888    Y8P                                            888      888      
+                    888         888                                                   888            
+                    888     888 888888 888  .d8888b  8888b.   .d8888b  8888b.         888888 .d88b.  
+                    888     888 888    888 d88P"        "88b d88P"        "88b        888   d88""88b 
+                    888     888 888    888 888      .d888888 888      .d888888 888888 888   888  888 
+                    888     888 Y88b.  888 Y88b.    888  888 Y88b.    888  888        Y88b. Y88..88P 
+                    888     888  "Y888 888  "Y8888P "Y888888  "Y8888P "Y888888         "Y888 "Y88P" \n Zsana\n Geri\n""")
     print("1.back")
-    selection = int(input("Enter choice:"))
-    if selection == 1:
+    selection = (input("Enter choice:"))
+    if selection == '1':
         mainMenu()
     else:
-        print("Invalid choice. Press enter 1!")
+        credit()
 
 
 def win1_score():
@@ -108,15 +111,15 @@ def mainMenu():
     subprocess.call(["clear"])
     title()
     print(""" 1.Start\n 2.Credit\n 3.Quit\n""")
-    selection = int(input("Enter choice:"))
-    if selection == 1:
+    selection = (input("Enter choice:"))
+    if selection == '1':
         game()
-    elif selection == 2:
+    elif selection == '2':
         credit()
-    elif selection == 3:
+    elif selection == '3':
         exitgame()
     else:
-        print("Invalid choice. Press enter 1-3!")
+        mainMenu()
 
 
 def board(map):
@@ -153,7 +156,7 @@ def winning_condition(map, state):
 def choice(map, counter):
     try:
         cho = int(input("Enter a number: "))
-    except ValueError:
+    except (ValueError, IndexError):
         cho = input('press q to return to main menu')
         if cho == 'q':
             mainMenu()
@@ -200,10 +203,13 @@ def main():
             break
         i += 1
         counter += 1
-    while True: # if we choose different letter then 'r', it restarted anyway
-        restart = input("Press r to restart ")
-        if restart == "r":
+    while True:
+        restart = input("Would you like to restart? y/n: ")# if we chose different letter then 'r', it restarted anyway
+        if restart == "y": # we changed r to y or n
             main()
+            False
+        elif restart == "n":
+            mainMenu()
             False
         else:
             print("Invalid input")
