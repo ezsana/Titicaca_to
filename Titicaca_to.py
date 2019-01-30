@@ -174,16 +174,28 @@ def choice(map, counter):
             board(map)
             choice(map, counter)
     else:
-        if counter % 2 == 1:
-            if map[cho] != "X":
-                map[cho] = "O"
-            else:
-                choice(map, counter)
-        else:
-            if map[cho] != "O":
-                map[cho] = "X"
-            else:
-                choice(map, counter)
+        if Start == "X":
+            if counter % 2 == 1:
+                if map[cho] != "X":
+                 map[cho] = "O"
+                else:
+                    choice(map, counter)
+            else:    
+                if map[cho] != "O":
+                    map[cho] = "X"
+                else:
+                    choice(map, counter)
+        elif Start == "O":
+            if counter % 2 == 1:
+                if map[cho] != "O":
+                 map[cho] = "X"
+                else:
+                    choice(map, counter)
+            else:    
+                if map[cho] != "X":
+                    map[cho] = "O"
+                else:
+                    choice(map, counter)
     subprocess.call(['clear'])
     board(map)
 
@@ -306,7 +318,7 @@ def AIMain():
             break
         i += 1
     while True:
-        restart = input("Would you like to restart? y/n: ")
+        restart = input('Would you like to restart? y/n: ')
         if restart == "y":
             AIMain()
             False
@@ -323,6 +335,11 @@ def main():
     i = 0
     counter = 0
     run = True
+    global Start
+    Start = ''
+    while not (Start == 'X' or Start == 'O'):
+        print('Do you want to start game with X or O?')
+        Start = input().upper()
     while run == True:
         board(map)
         choice(map, counter)
