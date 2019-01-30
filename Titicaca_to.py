@@ -155,9 +155,14 @@ def winning_condition(map, state):
 
 def choice(map, counter):
     try:
-        cho = int(input("Enter a number: "))
-    except (ValueError):
-        cho = input('press q to return to main menu')
+        while True:
+            cho = int(input("Enter a number: "))
+            if  cho in [1,2,3,4,5,6,7,8,9]:
+                break
+            else:
+                print('Please write a number between 1-9: ')
+    except ValueError:
+        cho = input('Press q to return to main menu or any key to stay in the game: ')
         if cho == 'q':
             mainMenu()
         else:
@@ -176,7 +181,8 @@ def choice(map, counter):
                 map[cho] = "X"
             else:
                 choice(map, counter)
-
+    if cho not in [1,2,3,4,5,6,7,8,9]:
+        print('Please write a number between 1-9. ')
     subprocess.call(["clear"])
     board(map)
 
